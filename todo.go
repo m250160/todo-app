@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"os"
+	"fmt"
 )
 
 type Task struct {
@@ -50,17 +51,39 @@ func nextID(tasks []Task) int {
 }
 
 func AddTask(title string) {
-	panic("unimplemented")
+	tasks,err := loadTasks()
+	if err != nil {
+		println("読み込みエラー:", err.Error())
+	}
+	var test Task
+	test.ID = nextID(tasks)
+	test.Title = title
+	test.Done = false
+
+	tasks = append(tasks, test)
+	saveTasks(tasks)
 }
 
 func ListTasks() {
-	panic("unimplemented")
+	tasks,err := loadTasks()
+	if err != nil {
+		fmt.Println("読み込みエラー:", err.Error())
+	}
+	for i := 0; i < len(tasks); i++ {
+		var x string
+		if tasks[i].Done{
+			x = "[x]"
+		} else {
+			x = "[ ]"
+		}
+		fmt.Println(tasks[i].ID, ":", tasks[i].Title, x)
+	}
 }
 
 func CompleteTask(id int) {
-	panic("unimplemented")
+	// panic("unimplemented")
 }
 
 func DeleteTask(id int) {
-	panic("unimplemented")
+	// panic("unimplemented")
 }
