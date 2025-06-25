@@ -61,14 +61,20 @@ func ListTasks() {
 func CompleteTask(id int) {
 	var tasks []Task
 	var err error
+	var i int
 	tasks, err = loadTasks()
 	if err != nil {
 		fmt.Println("Error!")
+		return
 	}
-	for i := 0; i < len(tasks); i++ {
+	for i = 0; i < len(tasks); i++ {
 		if tasks[i].ID == id {
 			tasks[i].Done = true
+			break
 		}
+	}
+	if i == len(tasks) {
+		fmt.Println("No ID!")
 	}
 	saveTasks(tasks)
 }
