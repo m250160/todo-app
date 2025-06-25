@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"os"
 	"fmt"
 )
@@ -81,9 +82,31 @@ func ListTasks() {
 }
 
 func CompleteTask(id int) {
-	// panic("unimplemented")
+	var tasks []Task
+	var err error
+	tasks, err = loadTasks()
+	if err != nil {
+		fmt.Println("Error!")
+	}
+	for i := 0; i < len(tasks); i++ {
+		if tasks[i].ID == id {
+			tasks[i].Done = true
+		}
+	}
+	saveTasks(tasks)
 }
 
 func DeleteTask(id int) {
-	// panic("unimplemented")
+	var tasks []Task
+	var err error
+	tasks, err = loadTasks()
+	if err != nil {
+		fmt.Println("Error!")
+	}
+	for i := 0; i < len(tasks); i++ {
+		if tasks[i].ID == id {
+			tasks = append(tasks[:i], tasks[i+1:]...)
+		}
+	}
+	saveTasks(tasks)
 }
