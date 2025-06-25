@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
-	"fmt"
 )
 
 type Task struct {
@@ -54,7 +53,6 @@ func nextID(tasks []Task) int {
 func AddTask(title string) {
 	tasks,err := loadTasks()
 	if err != nil {
-		println("読み込みエラー:", err.Error())
 	}
 	var test Task
 	test.ID = nextID(tasks)
